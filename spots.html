@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Spots — CPSU Main Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:     #081A10;
+      --deep-green: #1B3A2D;
+      --mid-green:  #2D5A3D;
+      --lite-green: #4A7C5F;
+      --gold:       #C9962B;
+      --gold-lt:    #E8B84B;
+      --cream:      #F7F2EA;
+      --cream-w:    #EDE5D8;
+      --off-white:  #FAF8F4;
+      --text-dark:  #1C1C1C;
+      --text-mid:   #5A5A5A;
+
+      /* category accent colors */
+      --cat-academic:  #2D5A3D;
+      --cat-farm:      #5A7A2E;
+      --cat-facility:  #2E5A7A;
+      --cat-sport:     #7A2E5A;
+      --cat-landmark:  #C9962B;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 4rem;
+      background: rgba(8,26,16,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,150,43,0.18);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .8rem; text-decoration: none; }
+    .nav-seal {
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .7rem; font-weight: 700; color: var(--gold);
+    }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; color: white; line-height: 1.2;
+    }
+    .nav-wordmark span {
+      display: block; font-family: 'Outfit', sans-serif;
+      font-size: .6rem; font-weight: 300;
+      color: rgba(255,255,255,.5); letter-spacing: .13em; text-transform: uppercase;
+    }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .82rem; color: rgba(255,255,255,.65);
+      text-decoration: none; letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--gold-lt); }
+    .nav-back-arrow { font-size: .9rem; }
+    .nav-total {
+      font-size: .78rem; font-weight: 500;
+      color: var(--gold); letter-spacing: .06em;
+      background: rgba(201,150,43,.12);
+      border: 1px solid rgba(201,150,43,.25);
+      border-radius: 100px; padding: .3rem .9rem;
+    }
+
+    /* ─── HERO BAND ─── */
+    #hero {
+      padding: 9rem 4rem 4.5rem;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(201,150,43,.14) 0%, transparent 55%),
+        linear-gradient(150deg, #040F08 0%, #0D2318 35%, #1B3A2D 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: .35; pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,150,43,.22), transparent);
+    }
+
+    .hero-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: flex-end;
+      position: relative; z-index: 1;
+    }
+    .hero-kicker {
+      font-size: .72rem; font-weight: 500; color: var(--gold);
+      letter-spacing: .22em; text-transform: uppercase;
+      display: flex; align-items: center; gap: .7rem;
+      margin-bottom: 1rem;
+    }
+    .hero-kicker::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 700; color: white;
+      line-height: .95; letter-spacing: -.025em;
+      margin-bottom: .6rem;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold-lt); }
+    .hero-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 300; color: rgba(255,255,255,.38);
+      line-height: 1; letter-spacing: -.01em;
+    }
+    .hero-meta {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: .6rem; text-align: right;
+    }
+    .hero-meta-label {
+      font-size: .68rem; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase;
+    }
+    .hero-meta-loc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; color: rgba(255,255,255,.7);
+      letter-spacing: .03em;
+    }
+    .hero-meta-divider { width: 30px; height: 1px; background: rgba(201,150,43,.3); }
+
+    /* ─── FILTER BAR ─── */
+    #filters {
+      position: sticky; top: 62px; z-index: 50;
+      background: rgba(8,26,16,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: .9rem 4rem;
+    }
+    .filter-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: center; gap: .7rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: .68rem; font-weight: 500;
+      color: rgba(255,255,255,.38); letter-spacing: .15em; text-transform: uppercase;
+      margin-right: .4rem;
+    }
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .38rem 1rem; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: transparent; color: rgba(255,255,255,.55);
+      font-family: 'Outfit', sans-serif;
+      font-size: .78rem; font-weight: 400; letter-spacing: .04em;
+      cursor: pointer; transition: all .22s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+    .filter-chip:hover {
+      border-color: rgba(201,150,43,.45);
+      color: rgba(255,255,255,.85);
+    }
+    .filter-chip.active {
+      background: var(--gold); border-color: var(--gold);
+      color: var(--forest); font-weight: 600;
+    }
+    .chip-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; opacity: .7;
+    }
+
+    /* search */
+    .filter-search-wrap {
+      margin-left: auto;
+      position: relative;
+      display: flex; align-items: center;
+    }
+    .filter-search {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 100px;
+      padding: .38rem 1rem .38rem 2.2rem;
+      color: white; font-family: 'Outfit', sans-serif; font-size: .8rem;
+      width: 180px; outline: none; transition: all .2s;
+    }
+    .filter-search::placeholder { color: rgba(255,255,255,.35); }
+    .filter-search:focus {
+      border-color: rgba(201,150,43,.45);
+      background: rgba(255,255,255,.1); width: 220px;
+    }
+    .search-icon {
+      position: absolute; left: .75rem;
+      font-size: .8rem; color: rgba(255,255,255,.35); pointer-events: none;
+    }
+
+    /* ─── SPOTS GRID ─── */
+    #spots { padding: 4rem 4rem 6rem; }
+
+    .spots-header {
+      max-width: 1300px; margin: 0 auto 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .results-count {
+      font-size: .8rem; color: var(--text-mid);
+    }
+    .results-count strong { color: var(--deep-green); font-weight: 600; }
+
+    .spots-grid {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .spot-card {
+      background: white;
+      border: 1px solid var(--cream-w);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+      cursor: pointer;
+      display: flex; flex-direction: column;
+    }
+    .spot-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(27,58,45,.12);
+      border-color: rgba(201,150,43,.3);
+    }
+
+    /* card top illustration zone */
+    .card-visual {
+      height: 160px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-visual-bg {
+      position: absolute; inset: 0;
+      transition: transform .4s ease;
+    }
+    .spot-card:hover .card-visual-bg { transform: scale(1.06); }
+    .card-visual-icon {
+      font-size: 3.5rem; position: relative; z-index: 1;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.25));
+    }
+    .card-num-badge {
+      position: absolute; top: .8rem; left: .8rem; z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .8rem; font-weight: 700;
+      color: white; letter-spacing: .05em;
+      background: rgba(0,0,0,.35); backdrop-filter: blur(6px);
+      border-radius: 4px; padding: .2rem .5rem;
+    }
+    .cat-badge {
+      position: absolute; top: .8rem; right: .8rem; z-index: 2;
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: white; border-radius: 100px;
+      padding: .22rem .65rem;
+    }
+
+    /* category bg gradients */
+    .bg-academic  { background: linear-gradient(135deg, #0d2318 0%, #2D5A3D 100%); }
+    .bg-farm      { background: linear-gradient(135deg, #1a2d0d 0%, #5A7A2E 100%); }
+    .bg-facility  { background: linear-gradient(135deg, #0d1a2d 0%, #2E5A7A 100%); }
+    .bg-sport     { background: linear-gradient(135deg, #2d0d1a 0%, #7A2E5A 100%); }
+    .bg-landmark  { background: linear-gradient(135deg, #2d1a0d 0%, #C9962B 100%); }
+
+    /* category badge colors */
+    .badge-academic  { background: rgba(45,90,61,.75); }
+    .badge-farm      { background: rgba(90,122,46,.75); }
+    .badge-facility  { background: rgba(46,90,122,.75); }
+    .badge-sport     { background: rgba(122,46,90,.75); }
+    .badge-landmark  { background: rgba(201,150,43,.75); color: #1C1C1C !important; }
+
+    /* card body */
+    .card-body {
+      padding: 1.4rem 1.5rem 1.6rem;
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--deep-green); line-height: 1.2;
+      margin-bottom: .55rem;
+    }
+    .card-desc {
+      font-size: .87rem; font-weight: 300;
+      color: var(--text-mid); line-height: 1.75;
+      flex: 1;
+    }
+    .card-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+      margin-top: 1.1rem;
+    }
+    .tag {
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--deep-green);
+      background: var(--cream); border: 1px solid var(--cream-w);
+      border-radius: 100px; padding: .18rem .6rem;
+    }
+    .card-footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.2rem; padding-top: 1rem;
+      border-top: 1px solid var(--cream-w);
+    }
+    .card-loc {
+      font-size: .72rem; color: rgba(27,58,45,.5);
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .card-link-btn {
+      font-size: .75rem; font-weight: 600;
+      color: var(--gold); letter-spacing: .05em; text-transform: uppercase;
+      display: flex; align-items: center; gap: .35rem;
+      text-decoration: none; transition: gap .2s;
+    }
+    .card-link-btn:hover { gap: .6rem; }
+
+    /* ─── NO RESULTS ─── */
+    #no-results {
+      display: none;
+      max-width: 1300px; margin: 3rem auto;
+      text-align: center; padding: 5rem 2rem;
+    }
+    #no-results .nr-icon { font-size: 3rem; margin-bottom: 1rem; opacity: .4; }
+    #no-results p { font-size: 1rem; color: var(--text-mid); }
+
+    /* ─── LEGEND ─── */
+    #legend {
+      background: var(--cream); border-top: 1px solid var(--cream-w);
+      padding: 3rem 4rem;
+    }
+    .legend-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: flex-start; gap: 5rem; flex-wrap: wrap;
+    }
+    .legend-block {}
+    .legend-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600; color: var(--deep-green);
+      margin-bottom: 1rem;
+    }
+    .legend-items { display: flex; flex-direction: column; gap: .6rem; }
+    .legend-item { display: flex; align-items: center; gap: .7rem; }
+    .legend-swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .legend-item-label { font-size: .82rem; color: var(--text-mid); }
+    .legend-count {
+      font-size: .72rem; font-weight: 600;
+      color: white; border-radius: 100px; padding: .1rem .45rem;
+      margin-left: auto;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--forest);
+      border-top: 1px solid rgba(255,255,255,.05);
+      padding: 2.5rem 4rem;
+    }
+    .footer-row {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.2rem;
+    }
+    .f-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: white; }
+    .f-logo span {
+      display: block; font-family: 'Outfit', sans-serif;
+      font-size: .6rem; font-weight: 300;
+      color: rgba(255,255,255,.35); letter-spacing: .13em; text-transform: uppercase; margin-top: .15rem;
+    }
+    .f-note { font-size: .72rem; color: rgba(255,255,255,.25); max-width: 360px; line-height: 1.6; }
+    .f-copy { font-size: .7rem; color: rgba(255,255,255,.2); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(8,26,16,.65); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; animation: fadeIn .2s ease; }
+    .modal {
+      background: white; border-radius: 14px;
+      max-width: 560px; width: 100%;
+      overflow: hidden;
+      animation: slideUp .3s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-visual {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .modal-icon { font-size: 4.5rem; position: relative; z-index: 1; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 2;
+      background: rgba(0,0,0,.3); border: none; border-radius: 50%;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      color: white; cursor: pointer; font-size: 1rem;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: rgba(0,0,0,.55); }
+    .modal-body { padding: 2rem 2.2rem 2.2rem; }
+    .modal-kicker {
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .6rem;
+    }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--deep-green); line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .modal-desc {
+      font-size: .92rem; font-weight: 300;
+      color: var(--text-mid); line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+    .modal-meta {
+      display: flex; flex-direction: column; gap: .5rem;
+      padding: 1rem 1.2rem;
+      background: var(--off-white); border-radius: 8px;
+      border: 1px solid var(--cream-w);
+    }
+    .modal-meta-row { display: flex; gap: .6rem; align-items: flex-start; font-size: .82rem; }
+    .modal-meta-row .key { font-weight: 500; color: var(--deep-green); min-width: 90px; }
+    .modal-meta-row .val { color: var(--text-mid); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .08s; }
+    .d2 { transition-delay: .16s; }
+    .d3 { transition-delay: .24s; }
+
+    /* hidden spot cards during filter */
+    .spot-card.hidden {
+      display: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      nav, #hero, #filters, #spots, #legend, footer { padding-left: 2rem; padding-right: 2rem; }
+      .spots-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-meta { align-items: flex-start; text-align: left; }
+      .legend-inner { gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-right .nav-back span:not(.nav-back-arrow) { display: none; }
+      .spots-grid { grid-template-columns: 1fr; }
+      .filter-inner { gap: .5rem; }
+      .filter-search-wrap { width: 100%; }
+      .filter-search { width: 100%; }
+      .filter-search:focus { width: 100%; }
+      .footer-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV
+═══════════════════════════════════════ -->
+<nav>
+  <a href="cpsu-explore.html" class="nav-logo">
+    <div class="nav-seal">CPSU</div>
+    <div class="nav-wordmark">
+      Central Philippines State University
+      <span>Main Campus · Kabankalan</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="cpsu-explore.html" class="nav-back">
+      <span class="nav-back-arrow">←</span>
+      <span>Back to Overview</span>
+    </a>
+    <span class="nav-total" id="nav-count">15 Spots</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO BAND
+═══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">Campus Exploration</div>
+      <h1 class="hero-h1">Campus <em>Spots</em></h1>
+      <div class="hero-h2">Main Campus · Kabankalan</div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-label">Location</div>
+      <div class="hero-meta-loc">Brgy. Camingawan<br>Kabankalan City, Negros Occidental</div>
+      <div class="hero-meta-divider"></div>
+      <div class="hero-meta-label">Land Area</div>
+      <div class="hero-meta-loc" style="font-size:.92rem">4,653.7 Hectares</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FILTER BAR
+═══════════════════════════════════════ -->
+<div id="filters">
+  <div class="filter-inner">
+    <span class="filter-label">Filter</span>
+
+    <button class="filter-chip active" data-cat="all">
+      All <span style="font-weight:600;margin-left:.2rem" id="all-count"></span>
+    </button>
+    <button class="filter-chip" data-cat="academic">
+      <span class="chip-dot" style="background:#4A7C5F"></span> Academic
+    </button>
+    <button class="filter-chip" data-cat="farm">
+      <span class="chip-dot" style="background:#5A7A2E"></span> Farms &amp; Nature
+    </button>
+    <button class="filter-chip" data-cat="facility">
+      <span class="chip-dot" style="background:#2E5A7A"></span> Facilities
+    </button>
+    <button class="filter-chip" data-cat="sport">
+      <span class="chip-dot" style="background:#7A2E5A"></span> Sports
+    </button>
+    <button class="filter-chip" data-cat="landmark">
+      <span class="chip-dot" style="background:#C9962B"></span> Landmarks
+    </button>
+
+    <div class="filter-search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="filter-search" type="text" placeholder="Search a spot..." id="search-input">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SPOTS GRID
+═══════════════════════════════════════ -->
+<section id="spots">
+  <div class="spots-header">
+    <div class="results-count" id="results-label">Showing <strong id="results-num">15</strong> spots</div>
+  </div>
+
+  <div class="spots-grid" id="grid">
+
+    <!-- 01 Administration Building -->
+    <div class="spot-card reveal" data-cat="landmark"
+         data-title="Administration Building"
+         data-long="The nerve center of CPSU — the Administration Building houses the Office of the University President, Board of Regents (BOR) meeting rooms, and key administrative offices overseeing the entire university system, including its nine satellite campuses."
+         data-location="Central Campus Core"
+         data-hours="Mon–Fri, 8:00 AM – 5:00 PM"
+         data-college="University Administration"
+         data-icon="🏛️">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-landmark"></div>
+        <span class="card-visual-icon">🏛️</span>
+        <span class="card-num-badge">01</span>
+        <span class="cat-badge badge-landmark">Landmark</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Administration Building</div>
+        <p class="card-desc">The central hub of CPSU governance. Houses the Office of the University President, BOR administrative committee, and executive offices that manage all 10 CPSU campuses.</p>
+        <div class="card-tags">
+          <span class="tag">Governance</span>
+          <span class="tag">University HQ</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Campus Core</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 University Library -->
+    <div class="spot-card reveal d1" data-cat="facility"
+         data-title="University Library"
+         data-long="The CPSU Main Campus Library serves as the primary information and research hub for students, faculty, and researchers. As a state university library, it maintains collections spanning agriculture, sciences, education, engineering, technology, and the humanities, supporting CPSU's 55 academic programs."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:30 PM"
+         data-college="All Colleges"
+         data-icon="📚">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-facility"></div>
+        <span class="card-visual-icon">📚</span>
+        <span class="card-num-badge">02</span>
+        <span class="cat-badge badge-facility">Facility</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">University Library</div>
+        <p class="card-desc">The primary knowledge and research center of CPSU Main Campus. Houses academic collections across all disciplines offered by the university's seven colleges and graduate studies programs.</p>
+        <div class="card-tags">
+          <span class="tag">Research</span>
+          <span class="tag">Study Hall</span>
+          <span class="tag">References</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 University Gymnasium -->
+    <div class="spot-card reveal d2" data-cat="sport"
+         data-title="University Gymnasium"
+         data-long="The University Gymnasium is CPSU's main indoor venue for major events, student orientations, sports competitions, and convocations. It serves as the official venue for university-wide gatherings including the annual student orientation program for new Cenphilians."
+         data-location="Main Campus"
+         data-hours="As scheduled"
+         data-college="All Colleges / OSAS"
+         data-icon="🏟️">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-sport"></div>
+        <span class="card-visual-icon">🏟️</span>
+        <span class="card-num-badge">03</span>
+        <span class="cat-badge badge-sport">Sports</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">University Gymnasium</div>
+        <p class="card-desc">CPSU's main indoor arena and venue for university events, student orientations, athletic competitions, and major campus gatherings. The heart of Cenphilian student life.</p>
+        <div class="card-tags">
+          <span class="tag">Sports</span>
+          <span class="tag">Events Venue</span>
+          <span class="tag">Orientation</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 College of Agriculture and Forestry -->
+    <div class="spot-card reveal" data-cat="academic"
+         data-title="College of Agriculture and Forestry"
+         data-long="The flagship college of CPSU — deeply tied to the university's founding identity as the first agricultural institution in the Philippines established by a Filipino superintendent after World War II. CAF hosts annual celebrations like CAF Day and CAF Night, and drives CPSU's internationally recognized research in organic farming and biodiversity conservation."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Agriculture and Forestry (CAF)"
+         data-icon="🌾">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-farm"></div>
+        <span class="card-visual-icon">🌾</span>
+        <span class="card-num-badge">04</span>
+        <span class="cat-badge badge-farm">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Agriculture &amp; Forestry</div>
+        <p class="card-desc">CPSU's flagship and founding college. Rooted in the university's 1946 origins as the Philippines' first Filipino-led agricultural school. Internationally recognized for organic farming and biodiversity conservation programs.</p>
+        <div class="card-tags">
+          <span class="tag">CAF</span>
+          <span class="tag">Agriculture</span>
+          <span class="tag">Flagship</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 College of Computer Studies -->
+    <div class="spot-card reveal d1" data-cat="academic"
+         data-title="College of Computer Studies"
+         data-long="The College of Computer Studies (CCS) is located on the Main Campus in Brgy. Camingawan and offers programs including BSIT and BSCS. It regularly conducts ICT Diagnostic Examinations and houses the programs aligned with CPSU's vision of becoming a technology-driven multidisciplinary university by 2030."
+         data-location="Brgy. Camingawan, Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Computer Studies (CCS)"
+         data-icon="💻">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">💻</span>
+        <span class="card-num-badge">05</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Computer Studies</div>
+        <p class="card-desc">Home to BSIT and BSCS programs. Central to CPSU's 2030 vision of becoming a technology-driven multidisciplinary university. Regularly hosts ICT diagnostic exams and tech-focused events.</p>
+        <div class="card-tags">
+          <span class="tag">CCS</span>
+          <span class="tag">BSIT</span>
+          <span class="tag">BSCS</span>
+          <span class="tag">Tech</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Brgy. Camingawan</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 College of Teacher Education -->
+    <div class="spot-card reveal d2" data-cat="academic"
+         data-title="College of Teacher Education"
+         data-long="The College of Teacher Education (CTE) prepares future educators for roles across the Philippine educational system. It is part of CPSU's 55 accredited programs under CHED and contributes to the university's mission of delivering quality and relevant higher education to Negros and neighboring island provinces."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Teacher Education (CTE)"
+         data-icon="🎓">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">🎓</span>
+        <span class="card-num-badge">06</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Teacher Education</div>
+        <p class="card-desc">Produces professional educators for Negros and beyond. CTE programs are CHED-compliant with 100% Certificate of Program Compliance (COPC) — among CPSU's 55 accredited offerings.</p>
+        <div class="card-tags">
+          <span class="tag">CTE</span>
+          <span class="tag">Education</span>
+          <span class="tag">BEED · BSED</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 College of Arts and Sciences -->
+    <div class="spot-card reveal" data-cat="academic"
+         data-title="College of Arts and Sciences"
+         data-long="The College of Arts and Sciences (CAS) offers foundational and interdisciplinary programs in the natural sciences, social sciences, humanities, and mathematics. It underpins the university's commitment to holistic education and serves as a general education bridge for all colleges."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Arts and Sciences (CAS)"
+         data-icon="🔬">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">🔬</span>
+        <span class="card-num-badge">07</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Arts and Sciences</div>
+        <p class="card-desc">Covers the natural sciences, social sciences, and humanities. Functions as the academic backbone of the university and provides general education for all Cenphilian students.</p>
+        <div class="card-tags">
+          <span class="tag">CAS</span>
+          <span class="tag">Sciences</span>
+          <span class="tag">Humanities</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 College of Engineering -->
+    <div class="spot-card reveal d1" data-cat="academic"
+         data-title="College of Engineering"
+         data-long="The College of Engineering (CE) offers engineering programs aligned with Philippine licensure and international standards. It is closely connected to the university's Agricultural and Biosystems Engineering programs, which are accredited by the Professional Regulatory Board (PRB-ABE) of the Professional Regulation Commission (PRC)."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Engineering (CE)"
+         data-icon="⚙️">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">⚙️</span>
+        <span class="card-num-badge">08</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Engineering</div>
+        <p class="card-desc">Hosts agricultural and biosystems engineering programs recognized by the PRC-PRB. Deeply tied to CPSU's agricultural mission, bridging engineering technology with sustainable farming and production systems.</p>
+        <div class="card-tags">
+          <span class="tag">CE</span>
+          <span class="tag">Engineering</span>
+          <span class="tag">PRC-Accredited</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 College of Criminal Justice Education -->
+    <div class="spot-card reveal d2" data-cat="academic"
+         data-title="College of Criminal Justice Education"
+         data-long="The College of Criminal Justice Education (CCJE) equips students for careers in law enforcement, criminology, and criminal justice. CPSU's CCJE is one of its CHED-compliant colleges with 100% Certificate of Program Compliance (COPC), contributing to peace and order professions across Negros and the wider Visayas."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Criminal Justice Education (CCJE)"
+         data-icon="⚖️">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">⚖️</span>
+        <span class="card-num-badge">09</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Criminal Justice Education</div>
+        <p class="card-desc">Prepares Cenphilians for careers in law enforcement and criminology. A CHED-compliant college with 100% COPC, serving the justice and public safety needs of Negros Occidental and the region.</p>
+        <div class="card-tags">
+          <span class="tag">CCJE</span>
+          <span class="tag">Criminology</span>
+          <span class="tag">COPC</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 College of Hospitality Management -->
+    <div class="spot-card reveal" data-cat="academic"
+         data-title="College of Hospitality Management"
+         data-long="The College of Hospitality Management (CHM) offers programs in hospitality and tourism, preparing students for careers in hotel management, culinary arts, and the broader tourism industry. It is part of CPSU's diverse academic portfolio that extends its reach to serve Negros as a growing tourism destination."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 7:30 AM – 5:00 PM"
+         data-college="College of Hospitality Management (CHM)"
+         data-icon="🏨">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-academic"></div>
+        <span class="card-visual-icon">🏨</span>
+        <span class="card-num-badge">10</span>
+        <span class="cat-badge badge-academic">Academic</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">College of Hospitality Management</div>
+        <p class="card-desc">Offers hospitality, tourism, and hotel management programs. A forward-looking college aligned with Negros Occidental's growing tourism economy and the Philippines' hospitality industry needs.</p>
+        <div class="card-tags">
+          <span class="tag">CHM</span>
+          <span class="tag">Tourism</span>
+          <span class="tag">Hospitality</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 Agricultural Research & Demo Farm -->
+    <div class="spot-card reveal d1" data-cat="farm"
+         data-title="Agricultural Research & Demonstration Farm"
+         data-long="Within CPSU's vast 4,653.7-hectare land reservation, the Research and Demonstration Farm is where CPSU's internationally recognized sustainable agriculture and organic farming programs are practiced. CPSU has been recognized as a 'Special Green School Top Notcher' and 'Outstanding Biodiversity Conservation' institution by the Provincial Environment Management Office (PEMO), largely because of its farming and research activities on this land."
+         data-location="Main Campus Reservation Area"
+         data-hours="During academic operations"
+         data-college="College of Agriculture and Forestry (CAF)"
+         data-icon="🌱">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-farm"></div>
+        <span class="card-visual-icon">🌱</span>
+        <span class="card-num-badge">11</span>
+        <span class="cat-badge badge-farm">Farm</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Agricultural Research &amp; Demo Farm</div>
+        <p class="card-desc">Set within CPSU's 4,653.7-hectare reservation. Home to internationally recognized sustainable organic farming programs that earned CPSU the "Outstanding Biodiversity Conservation" award from PEMO in 2023.</p>
+        <div class="card-tags">
+          <span class="tag">Organic Farming</span>
+          <span class="tag">Research</span>
+          <span class="tag">Biodiversity</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Reservation Area</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 RLEO Building -->
+    <div class="spot-card reveal d2" data-cat="facility"
+         data-title="Review for Licensure Examinations Office"
+         data-long="The Review for Licensure Examinations Office (RLEO) supports Cenphilians preparing for professional board examinations across various disciplines. CPSU's RLEO regularly recognizes top-performing board passers with cash incentives, reflecting the university's commitment to producing competent and licensed professionals."
+         data-location="Main Campus"
+         data-hours="Mon–Fri, 8:00 AM – 5:00 PM"
+         data-college="University-wide"
+         data-icon="📝">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-facility"></div>
+        <span class="card-visual-icon">📝</span>
+        <span class="card-num-badge">12</span>
+        <span class="cat-badge badge-facility">Facility</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Review for Licensure Examinations Office</div>
+        <p class="card-desc">The RLEO coordinates board exam review programs for graduating students. Cenphilian board exam passers are recognized with cash incentives — a testament to CPSU's push for licensure excellence.</p>
+        <div class="card-tags">
+          <span class="tag">RLEO</span>
+          <span class="tag">Board Exam</span>
+          <span class="tag">Licensure</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 Main Campus Gate / Entrance -->
+    <div class="spot-card reveal" data-cat="landmark"
+         data-title="Main Campus Gate"
+         data-long="The main entrance of CPSU is traversed by an all-weather national highway, making the campus accessible by regular buses and jeepneys traveling between Bacolod (via Kabankalan City) and Dumaguete City (via Mabinay). The campus sits 19 km from Kabankalan City proper and 17 km from Mabinay, Negros Oriental — a landmark gateway between two provinces."
+         data-location="National Highway, Brgy. Camingawan"
+         data-hours="Open daily"
+         data-college="University Security Office"
+         data-icon="🚪">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-landmark"></div>
+        <span class="card-visual-icon">🚪</span>
+        <span class="card-num-badge">13</span>
+        <span class="cat-badge badge-landmark">Landmark</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Main Campus Gate</div>
+        <p class="card-desc">The iconic entrance fronting the national highway between Kabankalan and Mabinay. Accessible by bus and jeepney from Bacolod City and Dumaguete City — the welcome threshold of every Cenphilian's journey.</p>
+        <div class="card-tags">
+          <span class="tag">Entrance</span>
+          <span class="tag">Landmark</span>
+          <span class="tag">Highway Access</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 National Highway</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 Outdoor / Sports Complex -->
+    <div class="spot-card reveal d1" data-cat="sport"
+         data-title="Sports & Recreation Complex"
+         data-long="CPSU Main Campus has open outdoor sports facilities and covered courts supporting the athletic programs of its student population. The campus grounds, spread across a vast reservation, provide ample space for outdoor sports, physical education activities, and inter-collegiate competitions."
+         data-location="Main Campus"
+         data-hours="During university operations"
+         data-college="OSAS / Physical Education"
+         data-icon="⚽">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-sport"></div>
+        <span class="card-visual-icon">⚽</span>
+        <span class="card-num-badge">14</span>
+        <span class="cat-badge badge-sport">Sports</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Sports &amp; Recreation Complex</div>
+        <p class="card-desc">Open-air courts, fields, and physical education facilities set against CPSU's lush campus grounds. Supports inter-collegiate sports, recreational activities, and the physical development of all Cenphilians.</p>
+        <div class="card-tags">
+          <span class="tag">Athletics</span>
+          <span class="tag">PE</span>
+          <span class="tag">Recreation</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 Main Campus</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 Community & Natural Reservation -->
+    <div class="spot-card reveal d2" data-cat="farm"
+         data-title="Campus Natural Reservation"
+         data-long="Spanning 4,653.7 hectares, CPSU's main campus reservation is one of the largest in the Philippine state university system. Shared with communities within its reservation area, the land supports CPSU's internationally recognized programs in sustainable organic farming, agroforestry, and biodiversity conservation — earning recognition from the World Universities with Real Impact (WURI) and Times Higher Education (THE) Impact Rankings for two consecutive years starting 2023."
+         data-location="Brgy. Camingawan and surrounding reservation"
+         data-hours="Publicly accessible areas"
+         data-college="CPSU Community Extension"
+         data-icon="🌳">
+      <div class="card-visual">
+        <div class="card-visual-bg bg-farm"></div>
+        <span class="card-visual-icon">🌳</span>
+        <span class="card-num-badge">15</span>
+        <span class="cat-badge badge-farm">Nature</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Campus Natural Reservation</div>
+        <p class="card-desc">4,653.7 hectares of land shared with local communities, supporting CPSU's globally recognized agroforestry and biodiversity programs. Featured in THE Impact Rankings and WURI for two consecutive years since 2023.</p>
+        <div class="card-tags">
+          <span class="tag">Reservation</span>
+          <span class="tag">Agroforestry</span>
+          <span class="tag">Eco-Campus</span>
+          <span class="tag">THE Ranked</span>
+        </div>
+        <div class="card-footer-row">
+          <span class="card-loc">📍 4,653.7 Ha Reservation</span>
+          <span class="card-link-btn" onclick="openModal(this.closest('.spot-card'))">Details →</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /spots-grid -->
+
+  <div id="no-results">
+    <div class="nr-icon">🔎</div>
+    <p>No spots match your search. Try a different keyword or category.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     LEGEND
+═══════════════════════════════════════ -->
+<section id="legend">
+  <div class="legend-inner">
+    <div class="legend-block">
+      <div class="legend-title">Categories</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#4A7C5F"></div>
+          <span class="legend-item-label">Academic Buildings</span>
+          <span class="legend-count" style="background:#2D5A3D">7</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#5A7A2E"></div>
+          <span class="legend-item-label">Farms &amp; Nature</span>
+          <span class="legend-count" style="background:#5A7A2E">3</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#2E5A7A"></div>
+          <span class="legend-item-label">Facilities &amp; Services</span>
+          <span class="legend-count" style="background:#2E5A7A">3</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#7A2E5A"></div>
+          <span class="legend-item-label">Sports &amp; Recreation</span>
+          <span class="legend-count" style="background:#7A2E5A">2</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#C9962B"></div>
+          <span class="legend-item-label">Landmarks</span>
+          <span class="legend-count" style="background:#C9962B; color:#1C1C1C">2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend-block" style="max-width:340px">
+      <div class="legend-title">About This Guide</div>
+      <p style="font-size:.85rem;color:var(--text-mid);line-height:1.8">
+        This spots guide is based on verified information from CPSU's official website (<strong>cpsu.edu.ph</strong>), Wikipedia, and public CPSU Facebook pages. All college names, locations, and programs reflect CPSU's official structure as of 2024–2025. Some building-specific details (room numbers, exact coordinates) are best verified on-campus or through the University Registrar.
+      </p>
+    </div>
+
+    <div class="legend-block">
+      <div class="legend-title">Key Facts</div>
+      <div style="display:flex;flex-direction:column;gap:.8rem">
+        <div style="font-size:.82rem;color:var(--text-mid)">
+          <strong style="color:var(--deep-green)">Founded</strong><br>1946 — as NONAS, first Filipino-led agricultural school
+        </div>
+        <div style="font-size:.82rem;color:var(--text-mid)">
+          <strong style="color:var(--deep-green)">University since</strong><br>2012 via Republic Act No. 10228
+        </div>
+        <div style="font-size:.82rem;color:var(--text-mid)">
+          <strong style="color:var(--deep-green)">Land reservation</strong><br>4,653.7 hectares (one of the largest in the Philippines)
+        </div>
+        <div style="font-size:.82rem;color:var(--text-mid)">
+          <strong style="color:var(--deep-green)">ISO certified</strong><br>ISO 9001:2015 across all campuses
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-row">
+    <div class="f-logo">
+      Central Philippines State University
+      <span>Main Campus · Brgy. Camingawan, Kabankalan City, Negros Occidental</span>
+    </div>
+    <div class="f-note">
+      Spot information sourced from cpsu.edu.ph, Wikipedia, and official CPSU social media pages. Verify specific schedules and room assignments with the University Registrar.
+    </div>
+    <div class="f-copy">© 2025 CPSU Campus Explorer</div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     MODAL
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-visual" id="modal-visual">
+      <span class="modal-icon" id="modal-icon">🏛️</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-kicker" id="modal-kicker">Landmark</div>
+      <div class="modal-title" id="modal-title">Spot Name</div>
+      <p class="modal-desc" id="modal-desc">Description goes here.</p>
+      <div class="modal-meta">
+        <div class="modal-meta-row">
+          <span class="key">📍 Location</span>
+          <span class="val" id="modal-location">—</span>
+        </div>
+        <div class="modal-meta-row">
+          <span class="key">🕐 Hours</span>
+          <span class="val" id="modal-hours">—</span>
+        </div>
+        <div class="modal-meta-row">
+          <span class="key">🎓 College</span>
+          <span class="val" id="modal-college">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Count badges ── */
+  const allCards = document.querySelectorAll('.spot-card');
+  document.getElementById('all-count').textContent = allCards.length;
+  document.getElementById('nav-count').textContent = allCards.length + ' Spots';
+  document.getElementById('results-num').textContent = allCards.length;
+
+  /* ── Scroll reveal ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => ro.observe(el));
+
+  /* ── Filtering ── */
+  const chips = document.querySelectorAll('.filter-chip');
+  const searchInput = document.getElementById('search-input');
+  const noResults = document.getElementById('no-results');
+  let activeFilter = 'all';
+
+  function applyFilter() {
+    const query = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+
+    allCards.forEach(card => {
+      const cat = card.dataset.cat;
+      const title = card.dataset.title.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+      const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase()).join(' ');
+
+      const catMatch = activeFilter === 'all' || cat === activeFilter;
+      const searchMatch = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+
+      if (catMatch && searchMatch) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('results-num').textContent = visible;
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.cat;
+      applyFilter();
+    });
+  });
+
+  searchInput.addEventListener('input', applyFilter);
+
+  /* ── Modal ── */
+  const catBgMap = {
+    academic: 'bg-academic',
+    farm:     'bg-farm',
+    facility: 'bg-facility',
+    sport:    'bg-sport',
+    landmark: 'bg-landmark'
+  };
+  const catNameMap = {
+    academic: 'Academic Building',
+    farm:     'Farms & Nature',
+    facility: 'Facility & Service',
+    sport:    'Sports & Recreation',
+    landmark: 'Landmark'
+  };
+
+  function openModal(card) {
+    const d = card.dataset;
+    document.getElementById('modal-icon').textContent    = d.icon;
+    document.getElementById('modal-title').textContent   = d.title;
+    document.getElementById('modal-desc').textContent    = d.long;
+    document.getElementById('modal-location').textContent = d.location;
+    document.getElementById('modal-hours').textContent   = d.hours;
+    document.getElementById('modal-college').textContent  = d.college;
+    document.getElementById('modal-kicker').textContent  = catNameMap[d.cat] || d.cat;
+
+    const vis = document.getElementById('modal-visual');
+    vis.className = 'modal-visual ' + (catBgMap[d.cat] || '');
+
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
