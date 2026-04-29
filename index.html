@@ -1,1 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore CPSU — Central Philippine State University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --forest:      #081A10;
+      --deep-green:  #1B3A2D;
+      --mid-green:   #2D5A3D;
+      --light-green: #4A7C5F;
+      --gold:        #C9962B;
+      --gold-light:  #E8B84B;
+      --cream:       #F7F2EA;
+      --cream-warm:  #EDE5D8;
+      --off-white:   #FAF8F4;
+      --text-dark:   #1C1C1C;
+      --text-mid:    #5A5A5A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      transition: background 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s;
+    }
+
+    nav.scrolled {
+      background: rgba(8, 26, 16, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201, 150, 43, 0.18);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
+
+    .nav-seal {
+      width: 44px; height: 44px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: white; line-height: 1.2;
+    }
+
+    .nav-wordmark span {
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.62rem; font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 0.1rem;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      font-size: 0.84rem; font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-pill {
+      background: var(--gold) !important;
+      color: var(--forest) !important;
+      font-weight: 600 !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 100px;
+    }
+    .nav-pill:hover { background: var(--gold-light) !important; color: var(--forest) !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      height: 100vh; min-height: 680px;
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 72% 22%, rgba(201,150,43,.16) 0%, transparent 52%),
+        radial-gradient(ellipse at 15% 85%, rgba(45,90,61,.45) 0%, transparent 50%),
+        linear-gradient(155deg, #040F08 0%, #0D2318 28%, #1B3A2D 62%, #122A1D 100%);
+    }
+
+    /* grain */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.4; pointer-events: none;
+    }
+
+    /* horizontal rule accent */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,150,43,.25), transparent);
+    }
+
+    /* decorative leaf SVGs */
+    .leaf { position: absolute; pointer-events: none; }
+    .leaf-bl { bottom: -30px; left: -50px; width: 380px; opacity: 0.09; }
+    .leaf-tr { top: 60px; right: -40px; width: 260px; opacity: 0.08; transform: scaleX(-1) rotate(20deg); }
+
+    /* bokeh */
+    .bokeh {
+      position: absolute; border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: .5; }
+      100% { transform: translateY(-110vh) translateX(var(--dx)); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1300px; margin: 0 auto;
+      padding: 0 4rem; width: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .8rem;
+      margin-bottom: 1.6rem;
+      animation: fadeUp .75s ease .15s both;
+    }
+    .eyebrow-line { width: 38px; height: 1px; background: var(--gold); }
+    .eyebrow-text {
+      font-size: .72rem; font-weight: 500;
+      color: var(--gold); letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.8rem, 8vw, 8.5rem);
+      font-weight: 700; color: white;
+      line-height: .92; letter-spacing: -.025em;
+      animation: fadeUp .75s ease .28s both;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold-light); }
+
+    .hero-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6.5vw, 6.8rem);
+      font-weight: 300; color: rgba(255,255,255,.42);
+      line-height: 1; letter-spacing: -.01em;
+      margin-bottom: 2rem;
+      animation: fadeUp .75s ease .4s both;
+    }
+
+    .ornament {
+      display: flex; align-items: center; gap: .9rem;
+      margin-bottom: 1.6rem;
+      animation: fadeUp .75s ease .5s both;
+    }
+    .ornament-line { width: 55px; height: 1px; background: rgba(201,150,43,.35); }
+    .ornament-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .hero-desc {
+      font-size: .98rem; font-weight: 300;
+      color: rgba(255,255,255,.6);
+      max-width: 430px; line-height: 1.85;
+      margin-bottom: 2.5rem;
+      animation: fadeUp .75s ease .6s both;
+    }
+
+    .hero-btns {
+      display: flex; align-items: center; gap: 1.2rem;
+      animation: fadeUp .75s ease .7s both;
+    }
+
+    .btn-prim {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--gold); color: var(--forest);
+      font-size: .88rem; font-weight: 600;
+      padding: .88rem 2rem; border-radius: 4px;
+      text-decoration: none; letter-spacing: .04em;
+      transition: all .3s ease;
+    }
+    .btn-prim:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(201,150,43,.32);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .55rem;
+      color: rgba(255,255,255,.72);
+      font-size: .88rem; font-weight: 400;
+      text-decoration: none; letter-spacing: .04em;
+      border-bottom: 1px solid rgba(255,255,255,.28);
+      padding-bottom: 2px;
+      transition: all .2s;
+    }
+    .btn-ghost:hover { color: white; border-color: rgba(255,255,255,.7); }
+
+    .scroll-cue {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      animation: fadeIn 1s ease 1.2s both;
+    }
+    .scroll-cue span {
+      font-size: .6rem; letter-spacing: .22em;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+    }
+    .scroll-bar {
+      width: 1px; height: 42px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
+      animation: barPulse 2.2s ease infinite;
+    }
+    @keyframes barPulse {
+      0%,100% { transform: scaleY(1); opacity: 1; }
+      50%      { transform: scaleY(.55); opacity: .4; }
+    }
+
+    /* ─── INTRO ─── */
+    #intro { background: var(--cream); padding: 8rem 4rem; }
+
+    .intro-wrap {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center;
+    }
+
+    .section-kicker {
+      font-size: .72rem; font-weight: 500;
+      color: var(--gold); letter-spacing: .22em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: .7rem;
+      margin-bottom: 1.4rem;
+    }
+    .section-kicker::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+
+    .pull-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-weight: 400; color: var(--deep-green);
+      line-height: 1.28; letter-spacing: -.01em;
+    }
+    .pull-quote em { font-style: italic; color: var(--gold); }
+
+    .body-text {
+      border-left: 2px solid var(--cream-warm);
+      padding-left: 2.2rem;
+    }
+    .body-text p {
+      font-size: .97rem; font-weight: 300;
+      color: var(--text-mid); line-height: 1.92;
+      margin-bottom: 1.1rem;
+    }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ─── HIGHLIGHTS ─── */
+    #highlights { background: var(--off-white); padding: 7rem 4rem; }
+
+    .section-hd {
+      max-width: 1300px; margin: 0 auto 3.5rem;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      font-weight: 600; color: var(--deep-green);
+      line-height: 1.15;
+    }
+
+    .cards-grid {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5px; background: var(--cream-warm);
+    }
+
+    .card {
+      background: var(--off-white);
+      padding: 2.6rem 2rem;
+      position: relative; overflow: hidden;
+      transition: all .4s ease;
+    }
+    .card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--deep-green);
+      transform: translateY(100%);
+      transition: transform .55s cubic-bezier(.4,0,.2,1);
+    }
+    .card:hover::before { transform: translateY(0); }
+    .card > * { position: relative; z-index: 1; }
+
+    .card-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem; font-weight: 700;
+      color: var(--cream-warm); line-height: 1;
+      margin-bottom: 1.2rem;
+      transition: color .4s;
+    }
+    .card:hover .card-num { color: rgba(201,150,43,.15); }
+
+    .card-ico { font-size: 1.7rem; margin-bottom: .9rem; display: block; }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 600;
+      color: var(--deep-green); margin-bottom: .7rem; line-height: 1.2;
+      transition: color .4s;
+    }
+    .card:hover .card-title { color: white; }
+
+    .card-body {
+      font-size: .88rem; font-weight: 300;
+      color: var(--text-mid); line-height: 1.78;
+      transition: color .4s;
+    }
+    .card:hover .card-body { color: rgba(255,255,255,.68); }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: 1.4rem;
+      font-size: .76rem; font-weight: 500;
+      color: var(--gold); letter-spacing: .06em; text-transform: uppercase;
+      transition: color .3s, gap .2s;
+    }
+    .card:hover .card-link { color: var(--gold-light); gap: .7rem; }
+
+    /* ─── STATS ─── */
+    #stats {
+      background: var(--forest); padding: 6rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    #stats::before {
+      content: '';
+      position: absolute; top: -60%; left: -15%;
+      width: 55%; height: 220%;
+      background: radial-gradient(ellipse, rgba(201,150,43,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .stats-grid {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .stat {
+      padding: 3.2rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.8rem; font-weight: 700;
+      color: var(--gold); line-height: 1; margin-bottom: .45rem;
+    }
+    .stat-sup { font-size: 1.6rem; vertical-align: super; }
+
+    .stat-lbl {
+      font-size: .76rem; font-weight: 500;
+      color: rgba(255,255,255,.45);
+      letter-spacing: .14em; text-transform: uppercase;
+    }
+    .stat-sub { font-size: .82rem; color: rgba(255,255,255,.28); margin-top: .25rem; }
+
+    /* ─── EXPLORE TEASER ─── */
+    #explore {
+      background: var(--deep-green);
+      padding: 9rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    #explore::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+    #explore::after {
+      content: '';
+      position: absolute; top: 50%; right: 8%;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(201,150,43,.1) 0%, transparent 70%);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .explore-wrap {
+      max-width: 1300px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+
+    .cs-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(201,150,43,.12);
+      border: 1px solid rgba(201,150,43,.28);
+      border-radius: 100px;
+      padding: .38rem 1rem;
+      margin-bottom: 1.6rem;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--gold); border-radius: 50%;
+      animation: pulseDot 2.2s ease infinite;
+    }
+    @keyframes pulseDot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(201,150,43,.55); }
+      50%      { box-shadow: 0 0 0 7px rgba(201,150,43,0); }
+    }
+    .badge-lbl {
+      font-size: .72rem; font-weight: 600;
+      color: var(--gold); letter-spacing: .14em; text-transform: uppercase;
+    }
+
+    .explore-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4.2vw, 4.2rem);
+      font-weight: 700; color: white;
+      line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .explore-title em { font-style: italic; color: var(--gold-light); }
+
+    .explore-body {
+      font-size: .97rem; font-weight: 300;
+      color: rgba(255,255,255,.58); line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+
+    .explore-btn {
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: var(--gold); color: var(--forest);
+      font-size: .88rem; font-weight: 600;
+      padding: .9rem 2.2rem; border-radius: 4px;
+      text-decoration: none; letter-spacing: .04em;
+      cursor: not-allowed; opacity: .72;
+      position: relative;
+    }
+    .cs-tag {
+      position: absolute; top: -11px; right: -11px;
+      background: var(--forest); color: var(--gold);
+      font-size: .58rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .22rem .55rem; border-radius: 100px;
+      border: 1px solid var(--gold);
+    }
+
+    /* map preview */
+    .map-box {
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .map-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .pin {
+      position: absolute;
+      width: 9px; height: 9px;
+      background: var(--gold); border-radius: 50%;
+      border: 2px solid var(--forest);
+      animation: pinPulse 2.4s ease infinite;
+    }
+    @keyframes pinPulse {
+      0%    { box-shadow: 0 0 0 0 rgba(201,150,43,.55); }
+      70%   { box-shadow: 0 0 0 10px rgba(201,150,43,0); }
+      100%  { box-shadow: 0 0 0 0 rgba(201,150,43,0); }
+    }
+    .map-label {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+    .map-label-ico { font-size: 2.2rem; opacity: .35; display: block; margin-bottom: .7rem; }
+    .map-label-txt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 400;
+      color: rgba(255,255,255,.35); letter-spacing: .04em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--forest);
+      border-top: 1px solid rgba(255,255,255,.05);
+      padding: 3rem 4rem;
+    }
+    .footer-row {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .f-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 600; color: white;
+    }
+    .f-logo span {
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: .62rem; font-weight: 300;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .13em; text-transform: uppercase; margin-top: .2rem;
+    }
+    .f-links { display: flex; gap: 2rem; list-style: none; }
+    .f-links a {
+      font-size: .78rem; color: rgba(255,255,255,.38);
+      text-decoration: none; transition: color .2s;
+    }
+    .f-links a:hover { color: var(--gold); }
+    .f-copy { font-size: .72rem; color: rgba(255,255,255,.22); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .12s; }
+    .d2 { transition-delay: .24s; }
+    .d3 { transition-delay: .36s; }
+    .d4 { transition-delay: .48s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      nav, #intro, #highlights, #stats, #explore, footer { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .intro-wrap { grid-template-columns: 1fr; gap: 3.5rem; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid rgba(255,255,255,.07); }
+      .explore-wrap { grid-template-columns: 1fr; }
+      .map-box { display: none; }
+      .section-hd { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-h1  { font-size: 3.2rem; }
+      .hero-h2  { font-size: 2.6rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .f-links { flex-wrap: wrap; gap: 1.2rem; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-seal">CPSU</div>
+    <div class="nav-wordmark">
+      Central Philippine State University
+      <span>Main Campus</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#intro">About</a></li>
+    <li><a href="#highlights">Campus</a></li>
+    <li><a href="#stats">At a Glance</a></li>
+    <li><a href="#explore" class="nav-pill">Explore Spots →</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section id="hero">
+  <div id="bokeh-wrap"></div>
+
+  <!-- Decorative leaf shapes -->
+  <svg class="leaf leaf-bl" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60 420C60 310 170 200 220 90C265 -10 290 45 285 110C275 220 150 270 100 380Z" fill="#4A7C5F"/>
+    <path d="M10 400C40 290 120 180 210 75C250 25 275 65 262 130C240 235 90 295 45 390Z" fill="#2D5A3D"/>
+    <path d="M95 420C95 330 175 245 235 160C272 105 295 145 282 195C260 295 165 340 130 405Z" fill="#1B3A2D"/>
+  </svg>
+  <svg class="leaf leaf-tr" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60 420C60 310 170 200 220 90C265 -10 290 45 285 110C275 220 150 270 100 380Z" fill="#4A7C5F"/>
+    <path d="M10 400C40 290 120 180 210 75C250 25 275 65 262 130C240 235 90 295 45 390Z" fill="#2D5A3D"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Main Campus · Negros Occidental</span>
+    </div>
+
+    <h1 class="hero-h1">Where <em>Nature</em></h1>
+    <div class="hero-h2">Meets Knowledge</div>
+
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <p class="hero-desc">
+      Discover the heart of Central Philippine State University — a sprawling campus where academic excellence thrives amidst lush tropical landscapes, storied halls, and vibrant student life.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#intro" class="btn-prim">Begin Exploration <span>↓</span></a>
+      <a href="#explore" class="btn-ghost">View Campus Spots <span>→</span></a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     INTRO
+═══════════════════════════════════════ -->
+<section id="intro">
+  <div class="intro-wrap">
+    <div class="reveal">
+      <div class="section-kicker">About the University</div>
+      <p class="pull-quote">
+        A legacy of excellence,<br>
+        rooted in the <em>fertile</em><br>
+        heart of the Philippines.
+      </p>
+    </div>
+
+    <div class="body-text reveal d1">
+      <p>
+        Central Philippine State University stands as one of the premier state universities in Western Visayas, committed to providing quality, accessible, and relevant higher education. The Main Campus serves as the vibrant hub of academic, cultural, and communal life.
+      </p>
+      <p>
+        Nestled within a lush, expansive campus, CPSU offers a rare environment where natural beauty and scholarly pursuit coexist in harmony — from its deep agricultural roots to its modern, multi-disciplinary programs spanning technology, health sciences, education, and the arts.
+      </p>
+      <p>
+        This is your invitation to explore. From canopied walkways and research fields to storied administration buildings and student commons — every corner of CPSU carries a story waiting to be discovered.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     HIGHLIGHTS
+═══════════════════════════════════════ -->
+<section id="highlights">
+  <div class="section-hd">
+    <div class="reveal">
+      <div class="section-kicker">What Awaits You</div>
+      <h2 class="section-title">Campus Highlights</h2>
+    </div>
+  </div>
+
+  <div class="cards-grid" style="max-width:1300px; margin:0 auto;">
+    <div class="card reveal">
+      <div class="card-num">01</div>
+      <span class="card-ico">🌿</span>
+      <h3 class="card-title">Natural Heritage</h3>
+      <p class="card-body">Wander through verdant grounds filled with native flora, scenic tree-lined paths, and open green spaces that make CPSU one of the most picturesque campuses in the region.</p>
+      <div class="card-link">Discover <span>→</span></div>
+    </div>
+
+    <div class="card reveal d1">
+      <div class="card-num">02</div>
+      <span class="card-ico">🎓</span>
+      <h3 class="card-title">Academic Excellence</h3>
+      <p class="card-body">Home to a diverse range of colleges and programs, CPSU's Main Campus is a hub of intellectual activity, groundbreaking research, and professional development.</p>
+      <div class="card-link">Discover <span>→</span></div>
+    </div>
+
+    <div class="card reveal d2">
+      <div class="card-num">03</div>
+      <span class="card-ico">🏛️</span>
+      <h3 class="card-title">Rich Heritage</h3>
+      <p class="card-body">Walk through decades of history embedded in the campus architecture, traditions, and culture. The grounds tell the story of generations of Filipino scholars and dreamers.</p>
+      <div class="card-link">Discover <span>→</span></div>
+    </div>
+
+    <div class="card reveal d3">
+      <div class="card-num">04</div>
+      <span class="card-ico">🌟</span>
+      <h3 class="card-title">Student Life</h3>
+      <p class="card-body">Vibrant organizations, cultural festivals, sports facilities, and communal spaces craft a dynamic student life experience that extends well beyond the four walls of a classroom.</p>
+      <div class="card-link">Discover <span>→</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     STATS
+═══════════════════════════════════════ -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat reveal">
+      <div class="stat-n">
+        <span class="count" data-target="1965" data-format="year">1946</span>
+      </div>
+      <div class="stat-lbl">Year Established</div>
+      <div class="stat-sub">Decades of educational legacy</div>
+    </div>
+
+    <div class="stat reveal d1">
+      <div class="stat-n">
+        <span class="count" data-target="10">0</span><span class="stat-sup"></span>
+      </div>
+      <div class="stat-lbl">Colleges</div>
+      <div class="stat-sub">Multi-disciplinary programs</div>
+    </div>
+
+    <div class="stat reveal d2">
+      <div class="stat-n">
+        <span class="count" data-target="280">0</span>
+      </div>
+      <div class="stat-lbl">Hectares</div>
+      <div class="stat-sub">Of sprawling campus grounds</div>
+    </div>
+
+    <div class="stat reveal d3">
+      <div class="stat-n">
+        <span class="count" data-target="8000">0</span><span class="stat-sup">+</span>
+      </div>
+      <div class="stat-lbl">Students</div>
+      <div class="stat-sub">Thriving campus community</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     EXPLORE TEASER
+═══════════════════════════════════════ -->
+<section id="explore">
+  <div class="explore-wrap">
+    <!-- Copy -->
+    <div>
+      <div class="cs-badge reveal">
+        <div class="badge-dot"></div>
+        <span class="badge-lbl">Coming Soon</span>
+      </div>
+
+      <h2 class="explore-title reveal">
+        The Campus<br>
+        <em>Awaits</em> Your<br>
+        Exploration
+      </h2>
+
+      <p class="explore-body reveal d1">
+        We're mapping every corner of CPSU — from the iconic Administration Building to the hidden garden paths, from the bustling College of Agriculture to the serene university grounds. An immersive, spot-by-spot guide is on its way.
+        <br><br>
+        Pin your favorite places, learn the stories behind each landmark, and chart your own path through one of the Philippines' most distinctive university campuses.
+      </p>
+
+      <div class="reveal d2">
+        <a href="#" class="explore-btn" title="Coming soon">
+          Explore All Spots <span>→</span>
+          <span class="cs-tag">Soon</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Map preview -->
+    <div class="map-box reveal d1">
+      <div class="map-grid-bg"></div>
+      <!-- animated pins -->
+      <div class="pin" style="top:28%;left:42%;"></div>
+      <div class="pin" style="top:52%;left:63%;animation-delay:.6s;"></div>
+      <div class="pin" style="top:68%;left:28%;animation-delay:1.1s;"></div>
+      <div class="pin" style="top:22%;left:72%;animation-delay:1.6s;"></div>
+      <div class="pin" style="top:44%;left:18%;animation-delay:.85s;"></div>
+      <div class="pin" style="top:75%;left:58%;animation-delay:1.9s;"></div>
+      <div class="map-label">
+        <span class="map-label-ico">🗺️</span>
+        <div class="map-label-txt">Interactive Map — Coming Soon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-row">
+    <div class="f-logo">
+      Central Philippine State University
+      <span>Main Campus Explorer · CPSU</span>
+    </div>
+
+    <ul class="f-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#intro">About</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#stats">At a Glance</a></li>
+      <li><a href="#explore">Explore</a></li>
+    </ul>
+
+    <div class="f-copy">© 2025 CPSU Campus Explorer</div>
+  </div>
+</footer>
+
+<script>
+  /* ── Navbar scroll effect ── */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 55);
+  }, { passive: true });
+
+  /* ── Scroll reveal ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.13 });
+  reveals.forEach(el => ro.observe(el));
+
+  /* ── Count-up animation ── */
+  const counters = document.querySelectorAll('.count:not([data-format="year"])');
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.target;
+      const dur = 1800;
+      const step = target / (dur / 16);
+      let cur = 0;
+      const tick = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        el.textContent = Math.floor(cur).toLocaleString();
+        if (cur >= target) clearInterval(tick);
+      }, 16);
+      co.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => co.observe(el));
+
+  /* ── Bokeh particles ── */
+  const bw = document.getElementById('bokeh-wrap');
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('div');
+    b.className = 'bokeh';
+    const sz = Math.random() * 4 + 2;
+    b.style.cssText = [
+      `width:${sz}px`, `height:${sz}px`,
+      `left:${Math.random() * 100}%`, `bottom:-12px`,
+      `background:rgba(201,150,43,${(Math.random() * .45 + .15).toFixed(2)})`,
+      `box-shadow:0 0 ${sz * 2.5}px rgba(201,150,43,.28)`,
+      `animation-duration:${(Math.random() * 12 + 11).toFixed(1)}s`,
+      `animation-delay:-${(Math.random() * 12).toFixed(1)}s`,
+      `--dx:${((Math.random() - .5) * 110).toFixed(0)}px`
+    ].join(';');
+    bw.appendChild(b);
+  }
+</script>
+</body>
+</html>
